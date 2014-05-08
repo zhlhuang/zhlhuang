@@ -10,9 +10,7 @@ class IndexController extends BaseController
         $arr=json_decode($json,true);
         $text_model=new wx_text();
         $text=$arr["xml"];
-        echo "<pre>";
-        print_r($text);
-        echo "</pre>";
+        echo $text_model->insert($text);
         exit;
     }
 }
