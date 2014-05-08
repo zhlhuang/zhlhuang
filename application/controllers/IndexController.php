@@ -12,14 +12,15 @@ class IndexController extends BaseController
  <CreateTime>1348831860</CreateTime>
  <MsgType><![CDATA[text]]></MsgType>
  <Content><![CDATA[this is a test]]></Content>
- <MsgId>12345678901232313216346541321635465431346134654132163464132165456</MsgId>
+ <MsgId>1232163465413216354654313461346546</MsgId>
  </xml>            ";
         $json=Zend_Json::fromXml($xml);
         $arr=json_decode($json,true);
         $text_model=new wx_text();
         $text=$arr["xml"];
-        echo 
-        $text_model->insert($text);
+        echo "<pre>";
+        print_r($text);
+        echo "</pre>";
         exit;
     }
 }
