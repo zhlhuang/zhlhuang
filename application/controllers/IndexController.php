@@ -5,15 +5,7 @@ class IndexController extends BaseController
 {
     
     public function indexAction(){
-        $xml="
- <xml>
- <ToUserName><![CDATA[toUser]]></ToUserName>
- <FromUserName><![CDATA[fromUser]]></FromUserName> 
- <CreateTime>1348831860</CreateTime>
- <MsgType><![CDATA[text]]></MsgType>
- <Content><![CDATA[this is a test]]></Content>
- <MsgId>1232163465413216354654313461346546</MsgId>
- </xml>            ";
+        $xml=file_get_contents("php://input");
         $json=Zend_Json::fromXml($xml);
         $arr=json_decode($json,true);
         $text_model=new wx_text();
