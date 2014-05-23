@@ -1,5 +1,4 @@
 <?php
-
 class BaseController extends Zend_Controller_Action
 {
 
@@ -19,6 +18,25 @@ class BaseController extends Zend_Controller_Action
         $rep=array("","");
         $str=preg_replace($par, $rep, $str);
         return $str;
+    }
+    
+     public function gettextmsg($msg,$ToUserName,$FromUserName='gh_437ffb562bd0') {
+    	return $str = "<xml>
+    	        <ToUserName>
+        <![CDATA[" .$ToUserName. "]]>
+    </ToUserName>
+    <FromUserName>
+        <![CDATA[" .$FromUserName. "]]>
+    </FromUserName>
+    <CreateTime>" . time() . "</CreateTime>
+    <MsgType>
+        <![CDATA[text]]>
+    </MsgType>
+    <Content>
+        <![CDATA[".$msg."]]>
+    </Content>
+    <FuncFlag>0</FuncFlag>
+</xml>";
     }
 }
 
