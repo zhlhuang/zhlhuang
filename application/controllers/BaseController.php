@@ -38,5 +38,27 @@ class BaseController extends Zend_Controller_Action
     <FuncFlag>0</FuncFlag>
 </xml>";
     }
+    
+    public function getnewsmsg($ToUserName,$newsres,$FromUserName='gh_437ffb562bd0'){
+        $str="<xml>
+                <ToUserName><![CDATA[" .$ToUserName. "]]></ToUserName>
+<FromUserName><![CDATA[" .$FromUserName. "]]></FromUserName>
+<CreateTime>".time()."</CreateTime>
+<MsgType><![CDATA[news]]></MsgType>
+<ArticleCount>".count($newsres)."</ArticleCount>
+<Articles>
+";
+        foreach ($newsres as $value){
+            $str.="<item><Title><![CDATA[".$value["Title"]."]]></Title> 
+<Description><![CDATA[".$value["Description"]."]]></Description>
+<PicUrl><![CDATA[".$value["PicUrl"]."]]></PicUrl>
+<Url><![CDATA[".$value["Url"]."?id=".$value["id"]."]]></Url></item>";
+        }
+$str.="
+</Articles>
+</xml> ";
+return $str;
+        //
+    }
 }
 
