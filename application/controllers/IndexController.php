@@ -62,13 +62,17 @@ class IndexController extends BaseController
     		return $this->gettextmsg("<a href='http://zhl.besteee.com/member/add?UserName=".$res['FromUserName']."'>点击这里跟我做朋友</a>", $res["FromUserName"]);
     	}elseif($res["Content"]=="2"){
     	    $newsmodel=new wx_news();	
-    	    $newsres=$newsmodel->fetchAll("1","id desc",0)->toArray();
+    	    $newsres=$newsmodel->fetchAll("1","id desc",1,0)->toArray();
     		return $this->getnewsmsg($res["FromUserName"],$newsres);
+    	}elseif ($res["Content"]=="3"){
+    	    $newsmodel=new wx_news();
+    	    $newsres=$newsmodel->fetchAll("1","id desc",10,0)->toArray();
+    	    return $this->getnewsmsg($res["FromUserName"],$newsres);
     	}else{	
     	    $textmodel=new wx_text();
     		$textres=$textmodel->insert($res);
     		if($textres){
-    		    return $this->gettextmsg("我已经收到你的信息咯!  回复\n1：跟我做朋友\n2：看图文信息", $res["FromUserName"]);
+    		    return $this->gettextmsg("我已经收到你的信息咯!  回复\n1：跟我做朋友\n2：看图文信息\n3：看历史图文", $res["FromUserName"]);
     		}else{
     		    return $this->gettextmsg("抱歉没有收到信息", $res["FromUserName"]);
     		}
