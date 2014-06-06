@@ -36,13 +36,12 @@ class MemberController extends BaseController
         if($res){
             //表中已经存在
             $membermodel->update($member, "UserName='".$UserName."'");
-            echo "你是我的朋友了1";
+            $this->view->res="你已经是我的朋友了1";
         }else {
             //表中还没有记录
             $membermodel->insert($member); 
-            echo "你是我的朋友了";
+            $this->view->res="你已经是我的朋友了";
         }
-        exit;
     }
     
     public function getnameAction(){
