@@ -40,10 +40,35 @@ class NewsController extends BaseController
        $news=array("Title"=>$Title,"Description"=>$Description,"PicUrl"=>$PicUrl,"Url"=>$Url);
        
        $newsmodel=new wx_news();//添加到数据库中
-       $res=$newsmodel->insert($news);
+      $res=$newsmodel->insert($news);
+
+       if($res){
+          $param=array("id"=>$res,"Title"=>$Title);
+          $this->forward("addnewshow",null,null,$param);
+       }else {
+           echo "error";
+           exit;
+       }
+   }
+   public function addnewshowAction(){
+       $this->view->id=$this->getRequest()->getParam("id");
+       $this->view->Title=$this->getRequest()->getParam("Title");
+       
+   }
+   
+   public function chkaddnewshowAction(){
+       $id=$this->getRequest()->getParam("id");
+       $Title=$this->getRequest()->getParam("Title");
+       $content=stripslashes($this->getRequest()->getParam("content"));
+       
+       $shownewsmodel=new wx_shownews();
+
+       $shownews=array("id"=>$id,"Title"=>$Title,"img"=>'{"m1":"http://zhl.besteee.com/upload/1.jpg"}',"content"=>$content);
+
+       $res=$shownewsmodel->insert($shownews);
        if($res){
            echo "ok";
-       }else {
+       }else{
            echo "error";
        }
        exit;

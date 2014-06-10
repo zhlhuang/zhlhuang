@@ -8,7 +8,7 @@
 <body>
 <div style="width: 100%">
 <h1 align="center">所有用户信息</h1>
-<a href="showday?day=1">今天</a>
+
 <table style="border: 1px solid; width: 100%">
 <tr><td>发送用户</td><td>内容</td><td>发送时间</td><td>操作</td></tr>
 <?php foreach ($this->res as $value) {?>
@@ -16,6 +16,7 @@
 <td><?=gmdate("Y-m-d H:i:s",$value["CreateTime"]) ?></td><td><a href="#">添加</a>||<a href="#">删除</a></td></tr>
 <?php }?>
 </table>
+<?php echo $this->page;?>
 </div>
 <script type="text/javascript">
 function getname(username){

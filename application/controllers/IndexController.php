@@ -3,6 +3,7 @@ require_once (APPLICATION_PATH . '/controllers/BaseController.php');
 require_once (APPLICATION_PATH . '/models/wx_text.php');
 require_once (APPLICATION_PATH . '/models/wx_member.php');
 require_once (APPLICATION_PATH . '/models/wx_news.php');
+require_once (APPLICATION_PATH . '/models/wx_word.php');
 
 class IndexController extends BaseController
 {
@@ -35,14 +36,28 @@ class IndexController extends BaseController
     {
         $text_model = new wx_text();
         
-        $this->view->res=$text_model->fetchAll()->toArray();
+        $pagenow=$this->getRequest()->getParam("pagenow");
+        if($pagenow==null){
+            $pagenow=0;        
+        }
+        $showpage= $text_model->page($pagenow);
+        $this->view->res=$text_model->fetchAll(NUll,"CreateTime desc",20,$pagenow*20)->toArray();
+        $this->view->page=$showpage;
     }
     public function showdayAction(){
+        echo "<pre>";
+        print_r($this->getRequest()->getParams());
+        echo "</pre>";
+        $day=$this->getRequest()->getParam("day");
          $text_model = new wx_text();
-         $date=time()-1*86400;
-         $where="CreateTime > ".$date;
          
-        $this->view->res=$text_model->fetchAll($where,"CreateTime")->toArray();
+         
+         $date=strtotime(gmdate("Y-m-d",time()))-$day*86400;
+      
+         $where="CreateTime between ".$date." AND ".($date+86400);
+
+         
+        $this->view->res=$text_model->fetchAll($where,"CreateTime desc ")->toArray();
         $this->render("show");
         
     }
@@ -65,6 +80,9 @@ class IndexController extends BaseController
     	    $newsres=$newsmodel->fetchAll("1","id desc",1,0)->toArray();
     		return $this->getnewsmsg($res["FromUserName"],$newsres);
     	}elseif ($res["Content"]=="3"){
+    		$str=$this->getword();
+    		return $this->gettextmsg($str, $res["FromUserName"]);
+    	}elseif ($res["Content"]=="4"){
     	    $newsmodel=new wx_news();
     	    $newsres=$newsmodel->fetchAll("1","id desc",10,0)->toArray();
     	    return $this->getnewsmsg($res["FromUserName"],$newsres);
@@ -72,7 +90,7 @@ class IndexController extends BaseController
     	    $textmodel=new wx_text();
     		$textres=$textmodel->insert($res);
     		if($textres){
-    		    return $this->gettextmsg("我已经收到你的信息咯!  回复\n1：跟我做朋友\n2：看图文信息\n3：看历史图文", $res["FromUserName"]);
+    		    return $this->gettextmsg("我已经收到你的信息咯!  回复\n1：跟我做朋友\n2：看图文信息\n3：看今天单词\n4：看历史图文", $res["FromUserName"]);
     		}else{
     		    return $this->gettextmsg("抱歉没有收到信息", $res["FromUserName"]);
     		}
@@ -88,6 +106,22 @@ class IndexController extends BaseController
     	}else{
     		return $this->gettextmsg("再见", $res["FromUserName"]);
     	}
+    }
+    
+    public function getword(){
+        $wordmodel=new wx_word();
+        $res=$wordmodel->fetchAll()->toArray(null,"ctime desc",8,0);
+        $str="今天的单词：\n ";
+        foreach ($res as $value){
+            $str.=$value["word"]."\n ";
+            $str.=$value["explain"]."\n ";
+            if($value["match"]!=NULL){
+                $str.="搭配：".$value["match"]."\n ";
+            }
+            $str.="\n ";
+        }
+        $str.="<a herf='http://zhl.besteee.com/word/showexample'>查看例题</a> \n";
+        return $str;
     }
 }
 

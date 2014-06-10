@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>添加单词</title>
+<script type="text/javascript" src="http://zhl.besteee.com/js/jquery-min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<style>
+input{
+width: 65%;
+height: 30px;
+font-size: 25px;
+border-color: #d2d2d2;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+}
+
+.div1{
+	display:inline-block;
+	width: 10%;
+	
+}
+.div2{
+display:inline-block;
+	width: 19%;
+	
+}
+</style>
+<body>
+<div align="center">
+<h1>
+添加单词
+</h1>
+</div>
+<div align="center" style="width: 100%">
+<div class="div1">单词</div><div  class="div2">解析</div><div  class="div1">类型</div>
+<div  class="div2">巧记</div><div  class="div2">搭配</div><div  class="div2">操作</div>
+</div>
+<hr/>
+<?php foreach ($this->allword as $value){?>
+
+
+<div align="center" id="word<?=$value["id"]?>" style="width: 100%">
+<div class="div1" id="chkword<?=$value["id"]?>" onclick="showexample(<?=$value["id"]; ?>)"><?=$value["word"];?></div><div  class="div2"><?=$value["explain"];?></div><div  class="div1"><?=$value["typeid"];?></div>
+<div  class="div2"><?=$value["remember"];?></div><div  class="div2">  <?=$value["match"];?></div>
+<div  class="div2"><a href="addexample?wid=<?=$value['id']; ?>&typeid=<?=$value['typeid']; ?>">添加例题</a></div>
+</div><hr/>
+<?php }?>
+
+<script type="text/javascript">
+
+function showexample(wid){
+	send_data={"wid":wid};
+	$.post("../word/getexample",send_data,function(data,status){
+		$("#chkword"+wid).attr("onclick","showp("+wid+")");
+		data=eval("("+data+")");
+		 str="<div id='p"+wid+"'><p>题目："+data.content+"</p>";
+		str=str+"<p>A："+data.A+"</p>";
+		str=str+"<p>B："+data.B+"</p>";
+		str=str+"<p>C："+data.C+"</p>";
+		str=str+"<p>D："+data.D+"</p>";
+		str=str+"<p>解答："+data.explaination+"</p></div>"; 
+		$("#word"+wid).append(str);
+		});
+};
+
+function showp(wid){
+	dis=$("#p"+wid).css("display");
+	//alert(dis);
+	if(dis=="block"){
+		$("#p"+wid).css("display","none");
+		$("#p"+wid+">p").css("display","none");
+	}else{
+		$("#p"+wid).css("display","block");
+		$("#p"+wid+">p").css("display","block");
+	}
+}
+</script>
+</body>
+</html>
