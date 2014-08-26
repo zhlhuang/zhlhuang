@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台管理</title>
+</head>
+
+<body>
+<div align="center"><h1>后台管理</h1></div>
+<div style="float:left; width:14%; border:1px solid; height:500PX"><ul>
+<li onclick="goto(1)">添加新闻</li>
+<li onclick="goto(2)">添加单词</li>
+<li onclick="goto(3)">添加例题</li>
+<li onclick="goto(4)">用户管理</li>
+</ul>
+</div><div style="float:left; height:600px;width:85%;"><iframe id="if" style="width:100%;height:600px;"src="http://zhl.besteee.com/news/addnews"></iframe></div>
+<script>
+function goto(id){
+	if(id===1){
+		document.getElementById("if").src="http://zhl.besteee.com/news/addnews";
+	}else if(id===2){
+		document.getElementById("if").src="http://zhl.besteee.com/word/addword";
+	}else if(id===3){
+
+		document.getElementById("if").src="http://zhl.besteee.com/word/addexample";
+	}else if(id==4){
+		document.getElementById("if").src="http://zhl.besteee.com/index/showmember";
+	}
+}
+</script>
+</body>
+
+</html>

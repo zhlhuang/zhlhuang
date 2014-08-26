@@ -12,6 +12,13 @@ class BaseController extends Zend_Controller_Action
         $db->query("set names utf8");
         Zend_Db_Table::setDefaultAdapter($db);
     }
+    public function toshow($news,$toback=null){
+    
+    	
+    	$this->view->news=$news;
+    	$this->view->toback=$toback;
+    	$this->forward("show","globals");
+    }
     public function into($str){
         //出去微信数据中多余的格式
         $par=array("/<!\[CDATA\[/","/\]\]>/");
