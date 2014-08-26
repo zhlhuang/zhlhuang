@@ -17,17 +17,6 @@ border-bottom-right-radius: 10px;
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
 }
-
-.div1{
-	display:inline-block;
-	width: 10%;
-	
-}
-.div2{
-display:inline-block;
-	width: 19%;
-	
-}
 </style>
 <body>
 <div align="center">
@@ -35,18 +24,18 @@ display:inline-block;
 添加单词
 </h1>
 </div>
-<div align="center" style="width: 100%">
-<div class="div1">单词</div><div  class="div2">解析</div><div  class="div1">类型</div>
-<div  class="div2">巧记</div><div  class="div2">搭配</div><div  class="div2">操作</div>
-</div>
+
 <hr/>
 <?php foreach ($this->allword as $value){?>
-
-
-<div align="center" id="word<?=$value["id"]?>" style="width: 100%">
-<div class="div1" id="chkword<?=$value["id"]?>" onclick="showexample(<?=$value["id"]; ?>)"><?=$value["word"];?></div><div  class="div2"><?=$value["explain"];?></div><div  class="div1"><?=$value["typeid"];?></div>
-<div  class="div2"><?=$value["remember"];?></div><div  class="div2">  <?=$value["match"];?></div>
-<div  class="div2"><a href="addexample?wid=<?=$value['id']; ?>&typeid=<?=$value['typeid']; ?>">添加例题</a></div>
+<div  style="width: 100%">
+<div class="div1" >单词:<?=$value["word"];?></div>
+<div  class="div2">解析:<?=$value["explain"];?></div>
+<div  class="div1">类型:<?=$value["typeid"];?></div>
+<div  class="div2">巧记:<?=$value["remember"];?></div>
+<div  class="div2">搭配:<?=$value["match"];?></div>
+<div  class="div2">操作:<a href="addexample?wid=<?=$value['id']; ?>&typeid=<?=$value['typeid']; ?>">添加例题</a>
+||<a  id="chkword<?=$value["id"]?>" onclick="showexample(<?=$value["id"]; ?>)" >查看例题</a></div>
+<div id="example<?=$value["id"]; ?>" style="display: none"></div>
 </div><hr/>
 <?php }?>
 
@@ -57,25 +46,27 @@ function showexample(wid){
 	$.post("../word/getexample",send_data,function(data,status){
 		$("#chkword"+wid).attr("onclick","showp("+wid+")");
 		data=eval("("+data+")");
-		 str="<div id='p"+wid+"'><p>题目："+data.content+"</p>";
+		 str="<p>题目："+data.content+"</p>";
 		str=str+"<p>A："+data.A+"</p>";
 		str=str+"<p>B："+data.B+"</p>";
 		str=str+"<p>C："+data.C+"</p>";
 		str=str+"<p>D："+data.D+"</p>";
-		str=str+"<p>解答："+data.explaination+"</p></div>"; 
-		$("#word"+wid).append(str);
+		str=str+"<p>解答："+data.explaination+"</p>";
+		
+		$("#example"+wid).append(str);
+		$("#example"+wid).css("display","block"); 
 		});
 };
 
 function showp(wid){
-	dis=$("#p"+wid).css("display");
+	dis=$("#example"+wid).css("display");
 	//alert(dis);
 	if(dis=="block"){
-		$("#p"+wid).css("display","none");
-		$("#p"+wid+">p").css("display","none");
+		$("#example"+wid).css("display","none");
+		
 	}else{
-		$("#p"+wid).css("display","block");
-		$("#p"+wid+">p").css("display","block");
+		$("#example"+wid).css("display","block");
+		
 	}
 }
 </script>

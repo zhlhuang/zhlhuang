@@ -13,6 +13,22 @@ class NewsController extends BaseController
 
    }
    public function addnewsAction() {
+      $newsmodel=new wx_news();
+     
+      
+      $pagenow=$this->getRequest()->getParam("pagenow");  //获取当前显示页面
+      
+      if($pagenow==null){
+      	$pagenow=0;
+      }
+      
+      $showpage=$newsmodel->page($pagenow);
+/*       echo "<pre>";
+      print_r($res);
+      echo "</pre>";  */
+      $res=$newsmodel->fetchAll(null,"id desc",5,$pagenow*5)->toArray();
+      $this->view->res=$res;
+      $this->view->page=$showpage;
    }
    public function chkaddnewsAction(){
        
@@ -37,22 +53,28 @@ class NewsController extends BaseController
        $Title=$this->getRequest()->getParam("Title"); //文章的标题
        $Description=$this->getRequest()->getParam("Description");//文章的简介
        $Url="http://zhl.besteee.com/news/index";//文章跳转的地址
-       $news=array("Title"=>$Title,"Description"=>$Description,"PicUrl"=>$PicUrl,"Url"=>$Url);
+       $news=array("Title"=>$Title,"Description"=>$Description,"PicUrl"=>$PicUrl,"Url"=>$Url,"Createtime"=>time());
        
        $newsmodel=new wx_news();//添加到数据库中
       $res=$newsmodel->insert($news);
 
        if($res){
-          $param=array("id"=>$res,"Title"=>$Title);
-          $this->forward("addnewshow",null,null,$param);
+          $this->forward("addnews");
        }else {
            echo "error";
            exit;
        }
    }
    public function addnewshowAction(){
-       $this->view->id=$this->getRequest()->getParam("id");
+       $id=$this->getRequest()->getParam("id");
+       $this->view->id=$id;
        $this->view->Title=$this->getRequest()->getParam("Title");
+       $shownewsmodel=new wx_shownews();
+       $res=$shownewsmodel->fetchAll("id=".$id)->toArray();
+/*        echo "<pre>";
+       print_r($res);
+       echo "</pre>"; */
+       $this->view->content=$res[0]["content"];
        
    }
    
@@ -60,16 +82,43 @@ class NewsController extends BaseController
        $id=$this->getRequest()->getParam("id");
        $Title=$this->getRequest()->getParam("Title");
        $content=stripslashes($this->getRequest()->getParam("content"));
+       $Createtime=time();
        
        $shownewsmodel=new wx_shownews();
 
-       $shownews=array("id"=>$id,"Title"=>$Title,"img"=>'{"m1":"http://zhl.besteee.com/upload/1.jpg"}',"content"=>$content);
-
-       $res=$shownewsmodel->insert($shownews);
-       if($res){
-           echo "ok";
+       $shownews=array("id"=>$id,"Title"=>$Title,"img"=>'{"m1":"http://zhl.besteee.com/upload/1.jpg"}',"content"=>$content
+      ,"Createtime"=>$Createtime);
+       $r=$shownewsmodel->find("id=".$id);
+       $res='';
+       if($r){
+           $res=$shownewsmodel->update($shownews, "id=".$id);
+           if($res){
+           	echo "ok";
+           }else{
+           	echo "error";
+           }
        }else{
-           echo "error";
+           $res=$shownewsmodel->insert($shownews);
+           if($res){
+           	echo "ok";
+           }else{
+           	echo "error";
+           }
+       }
+     
+       exit;
+   }
+   
+   public function deletenewsAction(){
+       $id= $this->getRequest()->getParam("id");
+       $newsmodel=new wx_news();
+       $shownews=new wx_shownews();
+       $r1=$newsmodel->delete("id=".$id);
+       $r2=$shownews->delete("id=".$id);
+       
+
+       if ($r1==0 || $r2==0) {
+       	echo "ok";
        }
        exit;
    }

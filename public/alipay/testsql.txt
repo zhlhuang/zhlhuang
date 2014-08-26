@@ -1,0 +1,1 @@
+UPDATE `alipay`  SET  `trade_status`='WAIT_BUYER_CONFIRM_GOODS',`gmt_payment`='2014-07-03 20:27:16' WHERE out_trade_no='731'

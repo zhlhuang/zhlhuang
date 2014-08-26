@@ -1,0 +1,114 @@
+HTTP/1.1 200 OK
+Date: Sat, 05 Jul 2014 11:56:02 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 4546
+Content-Type: text/html
+Cache-control: private
+
+
+<html>
+<head>
+<title>学生服务子系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<base target="mainFrame">
+<link rel="stylesheet" href="Style.css" type="text/css">
+<script language="JavaScript" src="disable.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="5" topmargin="0">
+<TABLE cellSpacing=1 cellPadding=0 width="100%" border=0>
+  <TBODY> 
+  <TR>
+    <TD width="100%" class="biginfo">学生学籍</TD>
+  </TR>
+  </TBODY> 
+</TABLE>
+<table width="606" border="1" cellspacing="0" cellpadding="0" align="center" borderColorLight=#0082cf borderColorDark=#eeeeee>
+  <tr> 
+    <td width="60" height="26" align="center"><b>学号</b></td>
+    <td height="26" width="100" align="center">3112002855</td>
+    <td width="60" height="26" align="center"><b>姓名</b></td>
+    <td height="26" width="100" align="center">黄振炼</td>
+    <td width="60" height="26" align="center"><b>曾用名</b></td>
+    <td height="26" width="100" align="center">&nbsp;</td>
+    <td colspan="2" rowspan="6" align="center"><img src="myphoto/2014070519560289.jpg" width="96" height="128" border="1"></td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>性别</b></td>
+    <td height="26" width="100" align="center">男</td>
+    <td width="60" height="26" align="center"><b>出生年月</b></td>
+    <td height="26" width="100" align="center">1993年2月</td>
+    <td width="60" height="26" align="center"><b>民族</b></td>
+    <td height="26" width="100" align="center">汉族</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>籍贯</b></td>
+    <td height="26" colspan="3" align="center">广东</td>
+    <td width="60" height="26" align="center"><b>政治面貌</b></td>
+    <td height="26" width="100" align="center">共青团员</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>专业</b></td>
+    <td height="26" colspan="3" align="center">网络工程</td>
+    <td width="60" height="26" align="center"><b>班级</b></td>
+    <td height="26" width="100" align="center">120804</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>所在院</b></td>
+    <td height="26" width="100" align="center">计算机学院</td>
+    <td width="60" height="26" align="center"><b>所在系</b></td>
+    <td height="26" colspan="3" align="center">网络工程系</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>学制</b></td>
+    <td height="26" width="100" align="center">本科四年</td>
+    <td width="60" height="26" align="center"><b>入学时间</b></td>
+    <td height="26" width="100" align="center">20120914</td>
+    <td width="60" height="26" align="center"><b>学籍状态</b></td>
+    <td height="26" width="100" align="center">正常</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>身份证号</b></td>
+    <td height="26" colspan="3" align="center">445224199302185231</td>
+    <td width="60" height="26" align="center"><b>手机号码</b></td>
+    <td height="26" width="100" align="center">&nbsp;</td>
+    <td width="60" height="26" align="center"><b>健康状况</b></td>
+    <td height="26" width="60" align="center">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>家庭地址</b></td>
+    <td height="26" colspan="3" align="center">广东省揭阳市惠来县葵潭镇葵阳街52号</td>
+    <td width="60" height="26" align="center"><b>联系人</b></td>
+    <td height="26" width="100" align="center">黄振炼</td>
+    <td height="26" width="60" align="center"><b>邮政编码</b></td>
+    <td height="26" width="60" align="center">515239</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>联系电话</b></td>
+    <td height="26" width="100" align="center">&nbsp;</td>
+    <td width="60" height="26" align="center"><b>电子邮箱</b></td>
+    <td height="26" width="100" align="center">&nbsp;</td>
+    <td width="60" height="26" align="center"><b>宿舍号</b></td>
+    <td height="26" width="100" align="center">&nbsp;</td>
+    <td height="26" align="center" width="60"><b>宿舍电话</b></td>
+    <td height="26" align="center" width="60">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td width="60" height="26" align="center"><b>备注</b></td>
+    <td height="26" colspan="7">&nbsp;</td>
+  </tr>
+</table>
+<table width="606" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="5"></td></tr>
+<tr><td align=right><input type="button" name="button" class="botton" value="申请修改" onclick="location.href='info_mdi.asp'"></td></tr>
+</table>
+</body>
+</html>
+HTTP/1.1 400 Bad Request
+Content-Type: text/html
+Date: Sat, 05 Jul 2014 11:56:03 GMT
+Connection: close
+Content-Length: 35
+
+<h1>Bad Request (Invalid Verb)</h1>

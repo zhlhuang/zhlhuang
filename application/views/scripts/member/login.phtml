@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="http://zhl.besteee.com/css/style.css" type="text/css" media="all">
+<title>添加新闻</title>
+<script type="text/javascript" src="http://zhl.besteee.com/js/jquery-min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+</head>
+<style>
+
+p{
+	word-wrap: break-word;
+	word-break: normal;
+}
+</style>
+<body>
+<div class="logo">
+    <a href="index"><img src="http://zhl.besteee.com/images/logo.png" alt="Everything you need to know"></a>
+</div>
+<div class="header">
+	<div class="wrap top-bar">
+    	<button class="menu-show"><img src="http://zhl.besteee.com/images/plus.png" alt="plus"></button>
+    	<button class="menu-hide"><img src="http://zhl.besteee.com/images/minus.png" alt="minus"></button>
+        <div class="search">
+        	<form>
+            	<input type="text">
+                <input type="submit" value="">
+            </form>
+        </div>
+        <div class="clear-both"></div>
+        <nav class="menu">
+            <ul>
+                <li><a href="../zhl/index">首页</a></li>
+                <li><a href="#">四级英语</a></li>
+                <li><a href="#">六级英语</a></li>
+                <li><a href="#">美剧英语</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="content">
+	<div class="wrap">
+<div class="post">
+
+</div>
+<div>
+</div>
+<div id="imgdiv">
+</div>
+<br/>
+<div style="width: 100%;">
+
+</div>
+</div>
+</div>
+<div class="footer">
+	<div class="wrap bot-bar">
+    	&copy; 2014 by domain.tld &bull; design by <a href="http://meizhuo.org">meizhuo.org</a>
+        <div class="clear-both"></div>
+        
+    </div>
+</div>
+<script type="text/javascript">
+	$('.menu').hide();
+	$('.menu-show').show();
+	$('.menu-hide').hide();
+	$('.menu-show').click(function(){
+		$('.menu-show').toggle();
+		$('.menu-hide').toggle();
+		$('.menu').slideDown();
+	});
+	$('.menu-hide').click(function(){
+		$('.menu-hide').toggle();
+		$('.menu-show').toggle();
+		$('.menu').slideUp();
+	});
+</script>
+<a href="http://www.mobifreaks.com" title="site design by Mobifreaks.com"></a>
+<script>
+img=<?=$this->res["img"] ?>;
+for(var p in img){
+	$("#imgdiv").append('<div><img width="100%" src="'+img[p]+'"></img></div><br/>');
+}
+
+</script>
+</body>
+</html>

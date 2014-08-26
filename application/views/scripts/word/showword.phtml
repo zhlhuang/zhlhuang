@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>添加单词</title>
+<script type="text/javascript" src="http://zhl.besteee.com/js/jquery-min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<style>
+input{
+width: 65%;
+height: 30px;
+font-size: 25px;
+border-color: #d2d2d2;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+}
+</style>
+<body>
+<div align="center">
+<h1>
+添加单词
+</h1>
+</div>
+
+<hr/>
+<?php foreach ($this->allword as $value){?>
+<div  style="width: 100%">
+<div class="div1" >单词:<?=$value["word"];?></div>
+<div  class="div2">解析:<?=$value["explain"];?></div>
+<div  class="div1">类型:<?=$value["typeid"];?></div>
+<div  class="div2">巧记:<?=$value["remember"];?></div>
+<div  class="div2">搭配:<?=$value["match"];?></div>
+<div  class="div2">操作:<a  id="chkword<?=$value["id"]?>" onclick="showexample(<?=$value["id"]; ?>)" >查看例题</a></div>
+<div id="example<?=$value["id"]; ?>" style="display: none"></div>
+</div><hr/>
+<?php }?>
+
+<script type="text/javascript">
+
+function showexample(wid){
+	send_data={"wid":wid};
+	$.post("../word/getexample",send_data,function(data,status){
+		$("#chkword"+wid).attr("onclick","showp("+wid+")");
+		data=eval("("+data+")");
+		 str="<p>题目："+data.content+"</p>";
+		str=str+"<p>A："+data.A+"</p>";
+		str=str+"<p>B："+data.B+"</p>";
+		str=str+"<p>C："+data.C+"</p>";
+		str=str+"<p>D："+data.D+"</p>";
+		str=str+"<p>解答："+data.explaination+"</p>";
+		
+		$("#example"+wid).append(str);
+		$("#example"+wid).css("display","block"); 
+		});
+};
+
+function showp(wid){
+	dis=$("#example"+wid).css("display");
+	//alert(dis);
+	if(dis=="block"){
+		$("#example"+wid).css("display","none");
+		
+	}else{
+		$("#example"+wid).css("display","block");
+		
+	}
+}
+</script>
+</body>
+</html>

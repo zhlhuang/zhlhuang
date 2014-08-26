@@ -10,33 +10,33 @@ class IndexController extends BaseController
 
     public function indexAction ()
     {
+      /*   define("TOKEN", "zhlhuang"); 这个是对微信那边token的验证，没用的时候可以注释
+        $wechatObj = new wechatCallbackapiTest();
+        $wechatObj->valid();
+        exit(); */
         $xml = file_get_contents("php://input");
-        
-        $json = Zend_Json::fromXml($xml);
-        $arr = json_decode($json, true);
+        //获取微信用户发送过来的信息
+        $json = Zend_Json::fromXml($xml);  //将xml转换成json格式
+        $arr = json_decode($json, true);  //在讲 json格式转换成数组
         
         $res=$arr["xml"];
         
-    /*         $text_model = new wx_text();
-        $text = $arr["xml"]; */
-        
-        /* $msg="我已经收到你的信息咯！";
-        $str=$this->gettextmsg($msg, $text["FromUserName"]); */
         $str='';
         if($res["MsgType"]=="text"){
-           $str=$this->istext($res);
+           $str=$this->istext($res); //普通信息处理
         }else if($res["MsgType"]=="event"){
-            $str=$this->isevent($res);
+            $str=$this->isevent($res); //关注信息处理
         }
         echo $str;
         exit();
     }
 
     public function showAction ()
-    {
+    {    //显示用户发送的信息
         $text_model = new wx_text();
         
-        $pagenow=$this->getRequest()->getParam("pagenow");
+        $pagenow=$this->getRequest()->getParam("pagenow");  //获取当前显示页面
+        
         if($pagenow==null){
             $pagenow=0;        
         }
@@ -86,7 +86,19 @@ class IndexController extends BaseController
     	    $newsmodel=new wx_news();
     	    $newsres=$newsmodel->fetchAll("1","id desc",10,0)->toArray();
     	    return $this->getnewsmsg($res["FromUserName"],$newsres);
-    	}else{	
+    	}elseif ($res["Content"]=="5"){
+    	  $membermodel=new wx_member();
+    	  $r=$membermodel->getmemberone($res["FromUserName"]) ;   	    
+    	    
+    	     if($r){
+    	       
+    	        return $this->gettextmsg("<a href='http://zhl.besteee.com/member/login?UserName=".$res['FromUserName']."'>".$r["nickName"]."</a>",$res["FromUserName"]);
+    	    }else {
+    	       
+    	       return $this->gettextmsg("<a href='http://zhl.besteee.com/member/add?UserName=".$res['FromUserName']."'>点击这里跟我做朋友</a>", $res["FromUserName"]);
+    	    }  
+    	    
+    	}else {	
     	    $textmodel=new wx_text();
     		$textres=$textmodel->insert($res);
     		if($textres){
@@ -110,7 +122,7 @@ class IndexController extends BaseController
     
     public function getword(){
         $wordmodel=new wx_word();
-        $res=$wordmodel->fetchAll()->toArray(null,"ctime desc",8,0);
+        $res=$wordmodel->fetchAll(null,"ctime desc",5,0)->toArray();
         $str="今天的单词：\n ";
         foreach ($res as $value){
             $str.=$value["word"]."\n ";
@@ -120,7 +132,7 @@ class IndexController extends BaseController
             }
             $str.="\n ";
         }
-        $str.="<a herf='http://zhl.besteee.com/word/showexample'>查看例题</a> \n";
+        $str.="<a herf=\"http://zhl.besteee.com/word/showexample\">查看例题</a> \n";
         return $str;
     }
 }

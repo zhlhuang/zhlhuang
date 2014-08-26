@@ -6,6 +6,20 @@ require_once (APPLICATION_PATH.'/models/wx_example.php');
 class WordController extends BaseController
 {
     public function addwordAction(){
+
+        $pagenow=$this->getRequest()->getParam("pagenow");  //获取当前显示页面
+        
+        if($pagenow==null){
+        	$pagenow=0;
+        }
+        
+        $wordmodel=new  wx_word();
+        
+        $showpage=$wordmodel->page($pagenow);
+        
+        $allword=$wordmodel->fetchAll(null,"id desc",10,$pagenow*10)->toArray();
+        $this->view->allword=$allword;
+        $this->view->page=$showpage;
     }
     
     public function chkaddwordAction(){
@@ -29,7 +43,7 @@ class WordController extends BaseController
         $wordmodel=new  wx_word();
         $res=$wordmodel->insert($addword);
         if($res){
-            $allword=$wordmodel->fetchAll()->toArray();
+            $allword=$wordmodel->fetchAll(null,"id desc",10,0)->toArray();
             $this->view->allword=$allword;
         }else{
            echo "error";
@@ -44,22 +58,25 @@ class WordController extends BaseController
     
     public function showwordAction(){
         $wordmodel=new  wx_word();
-        $allword=$wordmodel->fetchAll()->toArray();
+        $allword=$wordmodel->fetchAll(NULL,"id desc")->toArray();
         $this->view->allword=$allword;
-        $this->render("chkaddword");
+        $this->render("showword");
     }
     
     public function addexampleAction(){
         $wid=$this->getRequest()->getParam("wid");
         $typeid=$this->getRequest()->getParam("typeid");
-        
-        $examplemodel=new wx_example();
-        $res=$examplemodel->fetchAll("wid=".$wid)->toArray();
-        if($res){
-            $this->view->res=$res[0];
+        if($wid==NULL){
+        }else{
+            $examplemodel=new wx_example();
+            $res=$examplemodel->fetchAll("wid=".$wid)->toArray();
+            if($res){
+            	$this->view->res=$res[0];
+            }
+            $this->view->wid=$wid;
+            $this->view->typeid=$typeid;
         }
-        $this->view->wid=$wid;
-        $this->view->typeid=$typeid;
+       
     }
     
      
@@ -92,7 +109,7 @@ class WordController extends BaseController
     
     public function showexampleAction(){
         $examplemodel=new wx_example();
-        $res=$examplemodel->fetchAll(null,"wid asc",5,0)->toArray();
+        $res=$examplemodel->fetchAll(null,"wid desc",5,0)->toArray();
         $this->view->res=$res;
         
     }

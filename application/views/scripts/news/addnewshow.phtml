@@ -3,11 +3,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>添加新闻</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://zhl.besteee.com/js/jquery-min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"> </script>
 </head>
+<style>
+body{
+	width: 700px;
+   margin: 0 auto;
+   border: 1px solid blue;
+	font-family: Courier New;
+}
+body div{
+	margin-left: 2px;
+	margin-right: 2px;
+}
+</style>
 <body>
 <div align="center">
 <h1>
@@ -18,8 +30,9 @@
 <form enctype="multipart/form-data" action="chkaddnewshow" method="post">
 <div><input type="hidden" name="id" value="<?php echo $this->id;?>"></div>
 <div>标题<input type="text" name="Title" value="<?php echo $this->Title;?>"></div>
+<br><br>
     <div>
-<script type="text/plain" id="textContent" name="content"> </script>
+<script type="text/plain" id="textContent" name="content" style="width:650px" ><?php echo $this->content;?></script>
     <script>
         var editor = new UE.ui.Editor();
         editor.render("textContent");

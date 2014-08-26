@@ -1,0 +1,1 @@
+UPDATE `orders` set `pStatus`='WAIT_SELLER_SEND_GOODS' where id='1'

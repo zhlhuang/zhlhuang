@@ -1,0 +1,1 @@
+INSERT INTO `alipay`(`out_trade_no`, `trade_no`, `trade_status`, `buyer_email`, `gmt_payment`, `price`, `seller_email`,`notify_id`) VALUES ('28','1220140801201407283205248225','WAIT_SELLER_SEND_GOODS','','20140728235129','1','1220140801','v7YJTjWp8dnbJ75gwgnetz6FwoQz00hTp4gLzcbEi5s8tQ1w-9Bk6uK5u4tKZjbxT-4sHl3UVZ6MF-y8QMFXb3jtM_bgCOGE') 

@@ -27,6 +27,7 @@ class MemberController extends BaseController
                 "sex"=>$sex,
                 "ctime"=>$ctime
         );
+        
     
        
         $membermodel=new wx_member();
@@ -42,6 +43,26 @@ class MemberController extends BaseController
             $membermodel->insert($member); 
             $this->view->res="你已经是我的朋友了";
         }
+    }
+    
+    public function loginAction(){
+            $UserName=$this->getRequest()->getParam("UserName");//获取UserName
+            $membermodel=new wx_member();
+            $res=$membermodel->find($UserName)->toArray();
+            
+            $member=$res[0];
+            $ctime=$member["ctime"]; //获取用户上次更新时间
+            $time=time();
+            echo $member["IP"]."    ";
+            echo $ip=$_SERVER['REMOTE_ADDR'];//获取客户端的ip地址
+            
+            if($ctime>($time-1800)){ //如果在半个小时之内发过登录信息   默认是登陆
+                echo "登录成功";
+                $this->view->member=$member;
+            }else{
+                echo "登录失败";
+            }
+           
     }
     
     public function getnameAction(){

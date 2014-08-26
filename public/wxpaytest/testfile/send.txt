@@ -1,0 +1,1 @@
+access_token=ng369HEXi2Z3wZItSDif_GeSUC__qQu5elrgcBHntJzyMQzZjgPr33W0n_93-zmw91erzYi-ZF9vnzPPhu9ivg-----posdata={"appid":"wxdde057f11e065c6e","openid":"364626853@qq.com","transid":"2014070362550292","out_trade_no":"58","deliver_timestamp":1405412435,"deliver_status":"1","deliver_msg":"ok","app_signature":"9fdc2c2946bfd8ebafd23351c54c69ce17bd5118","sign_method":"sha1"}
