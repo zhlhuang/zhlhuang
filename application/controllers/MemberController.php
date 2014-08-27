@@ -4,7 +4,9 @@ require_once (APPLICATION_PATH.'/models/wx_member.php');
 class MemberController extends BaseController
 {
     public function indexAction(){
-        echo 'hello';
+        $membermodel=new wx_member();
+        $UserName=$this->getRequest()->getParam("UserName");
+        echo $membermodel->islogin($UserName);
         exit;
     }
     public function addAction(){
@@ -53,14 +55,14 @@ class MemberController extends BaseController
             $member=$res[0];
             $ctime=$member["ctime"]; //获取用户上次更新时间
             $time=time();
-            echo $member["IP"]."    ";
             echo $ip=$_SERVER['REMOTE_ADDR'];//获取客户端的ip地址
             
             if($ctime>($time-1800)){ //如果在半个小时之内发过登录信息   默认是登陆
-                echo "登录成功";
-                $this->view->member=$member;
+                $r=$membermodel->updataIP($UserName, $ip);
+                $this->toshow("登录成功","index?UserName=".$UserName);
+                //$this->view->member=$member;
             }else{
-                echo "登录失败";
+                $this->toshow("登录失败，请回复5登录","http://zhl.besteee.com/zhl/index");
             }
            
     }
